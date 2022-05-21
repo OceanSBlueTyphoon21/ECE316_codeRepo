@@ -19,10 +19,10 @@ clear all
 close all
 
 % CHANGE THIS PARAMETER fs %
-fs = 9000; %sampling frequency (Change this to match what you found)
+fs = 1500; %sampling frequency (Change this to match what you found)
 ts = 1/fs; %sampling interval
 % CHANGE THIS PARAMETER fo %
-fo = 300; %fundamental freq in hz (Change this to match what you found)
+fo = 1; %fundamental freq in hz (Change this to match what you found)
 N = fs/fo; %number of samples
 to = 1/fo; %fundamental interval 
 n = 0:N-1; % the labels of our sequence
@@ -33,7 +33,7 @@ t = linspace(0,to,M); %sample locations
 
 
 % CHANGE THIS FUNCTION %
-x = cos(600*pi*t)+sin(4000*pi*t)+sin(1800*pi*t); %the "continuous" plot (Change this to match the signal in your homework)
+x = sin(6*pi*t)-cos(15*pi*t)-cos(2*pi*t); %the "continuous" plot (Change this to match the signal in your homework)
 
 figure(1)
 plot(t,x) %plot the "continuous" signal
@@ -43,7 +43,7 @@ ylabel('x(t)')
 % CHANGE THIS FUNCTION %
 %Here the times n*ts are your sampled location points, eg your "time"
 %vector
-xs = cos(600*pi*nts)+sin(4000*pi*nts)+sin(1800*pi*nts); %the "continuous" plot (Change this to match the signal in your homework)
+xs = sin(6*pi*nts)-cos(15*pi*nts)-cos(2*pi*nts); %the "continuous" plot (Change this to match the signal in your homework)
 
 hold on
 plot(n*ts, xs, 'o') %plot dots at your sampled locations
@@ -80,7 +80,7 @@ xlabel('F (sample interval in freq)')
 Tmax = 10*to; %high rate to sample at
 tt = linspace(0,Tmax,M);
 %CHANGE THIS FUNCTION
-xtt = cos(600*pi*tt)+sin(4000*pi*tt)+sin(1800*pi*tt); %Change this function to match the one in your homework, keep the time vector as tt
+xtt = sin(6*pi*tt)-cos(15*pi*tt)-cos(2*pi*tt); %Change this function to match the one in your homework, keep the time vector as tt
 X = fftshift(fft(xtt)); %fftshift shifts the zero freq component to the center of the plot
 X = abs(X)/M;
 f = (-M/2:(M/2)-1)/Tmax;
@@ -93,7 +93,7 @@ xlabel('frequency, f (Hz)')
 %%
 %% Run this section to downsample by a factor of SS
 %set up vector nans
-SS = 1; %Change this to be your downsampling rate (whole number)
+SS = 75; %Change this to be your downsampling rate (whole number)
 Nd = N/SS; % this is our new number of data points
 xd = nan(1,N); %create an empty arry of non a number (nan) terms
 xd(1:SS:end) = xs(1:SS:end); %pick every SSth value from your original data, and keep it (ignmore the others)
@@ -109,7 +109,7 @@ xd(isnan(xd))=[];
 display(strcat('length of xd is: ', string(length(xd))))
 Nd = length(xd);
 %% Run this section ot Upsample by a factor of UU
-UU = 3; % Change this value to be your upsampling rate
+UU = 75; % Change this value to be your upsampling rate
 Nup = Nd*UU;
 xup = zeros(1,Nup);
 xup(1:UU:end) = xd;
